@@ -10,5 +10,4 @@ No CMS, just clean code. Posts are dynamically loaded from JSON.
 - Separate pages: Home, About, Post view
 - Easy to expand with new posts
 
-### Live Demo
-(Will be available once GitHub Pages is enabled)
+
