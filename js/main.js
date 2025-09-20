@@ -1,26 +1,31 @@
-async function loadPosts(){
+async function loadPosts() {
   const res = await fetch("data/posts.json")
   const posts = await res.json()
   const postsContainer = document.getElementById("posts")
-  if(!postsContainer) return
-  postsContainer.innerHTML = posts.map((post,index)=>`
-    <div class="post-card reveal-card" style="animation-delay:${index*100}ms">
-      <h3>${post.title}</h3>
-      <p>${post.excerpt}</p>
-      <a href="post.html?id=${index}">Read More →</a>
-    </div>
-  `).join("")
+  if (!postsContainer) return
+
+  postsContainer.innerHTML = posts
+    .map((post, index) => `
+      <div class="post-card reveal-card" style="animation-delay: ${index * 100}ms">
+        <img src="${post.thumbnail}" alt="${post.title}" class="post-thumbnail">
+        <h3>${post.title}</h3>
+        <p>${post.excerpt}</p>
+        <a href="post.html?id=${index}">Read More →</a>
+      </div>
+    `)
+    .join("")
 }
 
-async function loadSinglePost(){
+async function loadSinglePost() {
   const res = await fetch("data/posts.json")
   const posts = await res.json()
   const params = new URLSearchParams(window.location.search)
   const id = params.get("id")
   const post = posts[id]
+
   const postContainer = document.getElementById("post-content")
-  if(post && postContainer){
-    document.title = `${post.title} | Prakarsh's Blog`
+  if (post && postContainer) {
+    document.title = `${post.title} | Prakarsh's Comics`
     postContainer.innerHTML = `
       <div class="post-full-view">
         <img src="${post.thumbnail}" alt="${post.title}" class="post-banner-image">
@@ -39,9 +44,5 @@ async function loadSinglePost(){
   }
 }
 
-// Call depending on page
-if(document.getElementById("posts")){
-  loadPosts()
-} else if(document.getElementById("post-content")){
-  loadSinglePost()
-}
+if (document.getElementById("posts")) loadPosts()
+if (document.getElementById("post-content")) loadSinglePost()
