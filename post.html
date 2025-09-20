@@ -3,14 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Post | Prakarsh's Blog</title>
+  <title>Post Title - Prakarsh Blog</title>
   <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+  <canvas id="bg-canvas"></canvas>
+
   <header>
     <div class="container">
-      <h1 class="logo">Prakarsh's Blog</h1>
+      <div class="logo">Prakarsh Blog</div>
       <nav>
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
@@ -18,14 +19,23 @@
     </div>
   </header>
 
-  <main class="container" id="post-content">
-    <!-- JS injects full post here -->
+  <main class="post-body">
+    <img src="images/spiderman.png" class="post-banner-image" alt="Banner">
+    <h1>Post Title</h1>
+    <div class="post-meta">By Prakarsh · September 2025</div>
+
+    <div class="post-content-full">
+      <p>This is where the main blog content goes. Written in your <em>Prakarsh vibe</em>, blending philosophy, entrepreneurship, and style.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc nec blandit consequat, sapien est facilisis purus, nec ultrices turpis magna vel felis.</p>
+    </div>
+
+    <a href="index.html" class="back-link">← Back to Home</a>
   </main>
 
   <footer>
-    <p>© 2025 Prakarsh’s Blog</p>
+    © 2025 Prakarsh Blog. All rights reserved.
   </footer>
 
-  <script src="js/main.js"></script>
+  <script src="js/bg.js" defer></script>
 </body>
 </html>
