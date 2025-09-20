@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prakarsh's Blog</title>
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prakarsh Blog</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<canvas id="bg-canvas"></canvas>
+  <canvas id="bg-canvas"></canvas>
 
-<header>
-  <div class="container">
-    <div class="logo">Prakarsh Blog</div>
-    <nav>
-      <a href="index.html" class="active">Home</a>
-      <a href="about.html">About</a>
-    </nav>
-  </div>
-</header>
+  <header>
+    <div class="container">
+      <div class="logo">Prakarsh</div>
+      <nav>
+        <a href="index.html" class="active">Home</a>
+        <a href="about.html">About</a>
+      </nav>
+    </div>
+  </header>
 
-<main class="container">
-  <h2>Latest Posts</h2>
-  <div id="posts" class="posts-grid"></div>
-</main>
+  <main class="container">
+    <h2>Latest Posts</h2>
+    <div class="posts-grid" id="posts-grid">
+      <!-- Posts loaded via main.js -->
+    </div>
+  </main>
 
-<footer>© 2025 Prakarsh Gupta</footer>
+  <footer>
+    &copy; 2025 Prakarsh. All Rights Reserved.
+  </footer>
 
-<script src="js/bg.js"></script>
-<script src="js/main.js"></script>
+  <script src="js/bg.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
