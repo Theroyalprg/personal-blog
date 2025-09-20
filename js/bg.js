@@ -1,72 +1,78 @@
 const canvas = document.getElementById('bg-canvas');
 const ctx = canvas.getContext('2d');
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+let w = canvas.width = window.innerWidth;
+let h = canvas.height = window.innerHeight;
 
 window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
 });
 
-// Load hero/comic images
-const icons = [
+// Load comic images (replace URLs with actual images you want)
+const icons = [];
+const iconSources = [
+    'images/marvel1.png',
+    'images/marvel2.png',
     'images/spiderman.png',
-    'images/ironman.png',
-    'images/captain.png',
-    'images/thor.png',
-    'images/hulk.png'
+    'images/ironman.png'
 ];
 
-let particles = [];
-
-for (let i = 0; i < 25; i++) {
+iconSources.forEach(src => {
     const img = new Image();
-    img.src = icons[Math.floor(Math.random() * icons.length)];
-    particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        z: Math.random() * 500 + 100,
-        size: Math.random() * 50 + 30,
-        speed: Math.random() * 0.5 + 0.2,
-        img,
-        offsetY: 0
-    });
-}
-
-// Track scroll
-let scrollY = 0;
-window.addEventListener('scroll', () => {
-    scrollY = window.scrollY;
+    img.src = src;
+    icons.push(img);
 });
 
-function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+// Particle class
+class Particle {
+    constructor() {
+        this.reset();
+    }
+    reset() {
+        this.x = Math.random() * w;
+        this.y = Math.random() * h;
+        this.z = Math.random() * w;
+        this.radius = 2 + Math.random() * 3;
+        this.speed = 0.02 + Math.random() * 0.03;
+        this.icon = icons[Math.floor(Math.random() * icons.length)];
+    }
+    update() {
+        this.z -= this.speed * w;
+        if (this.z < 1) this.reset();
+    }
+    draw() {
+        const k = 500 / this.z;
+        const px = (this.x - w/2) * k + w/2;
+        const py = (this.y - h/2) * k + h/2;
 
-    particles.sort((a, b) => b.z - a.z); // depth effect
-
-    particles.forEach(p => {
-        const scale = 500 / (p.z);
-        const x = p.x * scale + canvas.width / 2 - canvas.width/2 * scale;
-        const y = p.y * scale + canvas.height / 2 - canvas.height/2 * scale + scrollY * scale * 0.05; // parallax
-        const size = p.size * scale;
-
-        ctx.globalAlpha = Math.min(1, 1 - p.z / 600 + 0.2);
-        ctx.drawImage(p.img, x, y, size, size);
-
-        // Move forward in Z
-        p.z -= p.speed;
-        if (p.z < 50) {
-            p.z = Math.random() * 500 + 400;
-            p.x = Math.random() * canvas.width;
-            p.y = Math.random() * canvas.height;
-            p.size = Math.random() * 50 + 30;
-            p.speed = Math.random() * 0.5 + 0.2;
-            p.img.src = icons[Math.floor(Math.random() * icons.length)];
+        if (this.icon.complete) {
+            const size = this.radius * k / 5;
+            ctx.drawImage(this.icon, px - size/2, py - size/2, size, size);
+        } else {
+            ctx.beginPath();
+            ctx.arc(px, py, this.radius * k / 50, 0, Math.PI*2);
+            ctx.fillStyle = 'rgba(155,93,229,0.7)';
+            ctx.fill();
+            ctx.closePath();
         }
-    });
-
-    requestAnimationFrame(draw);
+    }
 }
 
-draw();
+// Initialize particles
+const particles = [];
+for (let i = 0; i < 80; i++) {
+    particles.push(new Particle());
+}
+
+// Animation loop
+function animate() {
+    ctx.clearRect(0, 0, w, h);
+    particles.forEach(p => {
+        p.update();
+        p.draw();
+    });
+    requestAnimationFrame(animate);
+}
+
+animate();
