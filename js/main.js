@@ -6,7 +6,7 @@ async function loadPosts() {
 
   postsContainer.innerHTML = posts
     .map((post, index) => `
-      <div class="post-card reveal-card" style="animation-delay: ${index * 100}ms">
+      <div class="post-card reveal-card" style="--i:${index % 5}; animation-delay:${index*100}ms">
         <img src="${post.thumbnail}" alt="${post.title}" class="post-thumbnail">
         <h3>${post.title}</h3>
         <p>${post.excerpt}</p>
@@ -14,6 +14,8 @@ async function loadPosts() {
       </div>
     `)
     .join("")
+
+  addComicEffect()
 }
 
 async function loadSinglePost() {
@@ -42,6 +44,21 @@ async function loadSinglePost() {
       </div>
     `
   }
+}
+
+function addComicEffect() {
+  const cards = document.querySelectorAll('.post-card')
+  cards.forEach(card => {
+    card.addEventListener('mouseenter', e => {
+      const burst = document.createElement('div')
+      burst.className = 'comic-burst'
+      burst.innerText = Math.random() > 0.5 ? 'POW!' : 'BAM!'
+      burst.style.top = `${e.offsetY}px`
+      burst.style.left = `${e.offsetX}px`
+      card.appendChild(burst)
+      setTimeout(() => burst.remove(), 500)
+    })
+  })
 }
 
 if (document.getElementById("posts")) loadPosts()
