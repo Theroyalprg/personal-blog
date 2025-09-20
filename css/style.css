@@ -159,3 +159,55 @@ footer {
   border-radius: 8px;
   margin-bottom: 1rem;
 }
+.post-banner-image {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.post-body {
+  max-width: 750px; /* Constrains width for better readability */
+  margin: 0 auto;   /* Centers the article content */
+  text-align: left;
+}
+
+.post-body h1 {
+  font-size: 3rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  /* Use the same gradient text as the logo */
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.post-meta {
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+.post-content-full p {
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.back-link {
+  display: block; /* Makes it easier to click */
+  text-align: center;
+  margin: 3rem auto 2rem;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.3s ease;
+}
+
+.back-link:hover {
+  transform: translateX(-5px);
+}
