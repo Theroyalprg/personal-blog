@@ -1,1 +1,52 @@
-const canvas=document.getElementById("bg-canvas"),ctx=canvas.getContext("2d");let w,h,particles=[];function resize(){w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight;}window.addEventListener("resize",resize);resize();class P{constructor(){this.x=Math.random()*w;this.y=Math.random()*h;this.z=Math.random()*w;this.px=this.x;this.py=this.y;this.speed=0.5+Math.random();}update(){this.px=this.x;this.py=this.y;this.z-=this.speed;if(this.z<1){this.z=w;this.x=Math.random()*w;this.y=Math.random()*h;}}draw(){let sx=(this.x-w/2)/(this.z/100)+w/2,sy=(this.y-h/2)/(this.z/100)+h/2;r=1-(this.z/w);ctx.fillStyle=`rgba(155,93,229,${r})`;ctx.beginPath();ctx.arc(sx,sy,3*r,0,2*Math.PI);ctx.fill();}}for(let i=0;i<200;i++)particles.push(new P());function anim(){ctx.fillStyle="rgba(15,12,41,0.3)";ctx.fillRect(0,0,w,h);particles.forEach(p=>{p.update();p.draw();});requestAnimationFrame(anim);}anim();
+const canvas = document.getElementById("bg-canvas");
+const ctx = canvas.getContext("2d");
+let width, height;
+let particles = [];
+
+function resize() {
+  width = canvas.width = window.innerWidth;
+  height = canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resize);
+resize();
+
+class Particle {
+  constructor() {
+    this.x = Math.random() * width;
+    this.y = Math.random() * height;
+    this.z = Math.random() * width;
+    this.size = Math.random() * 1.5 + 0.5;
+    this.speed = Math.random() * 0.5 + 0.2;
+  }
+  move() {
+    this.z -= this.speed;
+    if (this.z <= 0) {
+      this.x = Math.random() * width;
+      this.y = Math.random() * height;
+      this.z = width;
+    }
+  }
+  draw() {
+    const sx = (this.x - width / 2) * (width / this.z) + width / 2;
+    const sy = (this.y - height / 2) * (width / this.z) + height / 2;
+    const r = (width - this.z) / width * this.size * 4;
+    ctx.beginPath();
+    ctx.arc(sx, sy, r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(155,93,229,${1 - this.z / width})`;
+    ctx.fill();
+  }
+}
+
+for (let i = 0; i < 150; i++) particles.push(new Particle());
+
+function animate() {
+  ctx.fillStyle = "#0f0c29";
+  ctx.fillRect(0, 0, width, height);
+  particles.forEach(p => {
+    p.move();
+    p.draw();
+  });
+  requestAnimationFrame(animate);
+}
+
+animate();
