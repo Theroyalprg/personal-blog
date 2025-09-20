@@ -1,34 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prakarsh's Blog</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prakarsh's Blog</title>
+<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <div class="container">
-      <h1 class="logo">Prakarsh's Blog</h1>
-      <nav>
-        <a href="index.html" class="active">Home</a>
-        <a href="about.html">About</a>
-      </nav>
-    </div>
-  </header>
+<header>
+  <div class="container">
+    <h1 class="logo">Prakarsh's Blog</h1>
+    <nav>
+      <a href="index.html" class="active">Home</a><a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
 
-  <main class="container">
-    <h2>Latest Posts</h2>
-    <div id="posts" class="posts-grid">
-      <!-- JS injects posts here -->
-    </div>
-  </main>
+<main class="container">
+  <h2>Latest Posts</h2>
+  <div class="posts-grid" id="posts"></div>
+</main>
 
-  <footer>
-    <p>© 2025 Prakarsh’s Blog</p>
-  </footer>
+<footer>
+  <p>© 2025 Prakarsh’s Blog</p>
+</footer>
 
-  <script src="js/main.js"></script>
+<script src="js/main.js"></script>
+<script>
+const cards=document.querySelectorAll('.post-card');
+const observer=new IntersectionObserver(e=>{
+  e.forEach(i=>{
+    if(i.isIntersecting){
+      i.target.classList.add('reveal-card');
+      observer.unobserve(i.target)
+    }
+  })
+},{threshold:.1});
+cards.forEach(c=>observer.observe(c));
+</script>
 </body>
 </html>
