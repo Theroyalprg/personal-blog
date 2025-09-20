@@ -155,7 +155,7 @@ footer {
 .post-thumbnail {
   width: 100%;
   height: 160px;
-  object-fit: cover; /* This prevents the image from stretching */
+  object-fit: cover; 
   border-radius: 8px;
   margin-bottom: 1rem;
 }
@@ -168,8 +168,8 @@ footer {
 }
 
 .post-body {
-  max-width: 750px; /* Constrains width for better readability */
-  margin: 0 auto;   /* Centers the article content */
+  max-width: 750px; 
+  margin: 0 auto;   
   text-align: left;
 }
 
@@ -177,7 +177,6 @@ footer {
   font-size: 3rem;
   line-height: 1.2;
   margin-bottom: 1rem;
-  /* Use the same gradient text as the logo */
   background: linear-gradient(45deg, var(--primary), var(--secondary));
   -webkit-background-clip: text;
   background-clip: text;
@@ -210,4 +209,56 @@ footer {
 
 .back-link:hover {
   transform: translateX(-5px);
+}
+.about-section {
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* 1 part image, 2 parts text */
+  gap: 3rem;
+  align-items: center;
+  margin-top: 3rem;
+  padding: 2rem 0;
+}
+
+.profile-picture {
+  width: 100%;
+  max-width: 250px;
+  border-radius: 50%; /* Makes the image circular */
+  border: 5px solid var(--primary);
+  box-shadow: 0 0 25px var(--glow-color);
+  justify-self: center; /* Centers the image in its grid cell */
+}
+
+.about-text h2 {
+  text-align: left; /* Overrides the default centered h2 */
+  margin-top: 0;
+}
+
+.social-links {
+  margin-top: 2rem;
+}
+
+.social-links a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 10px 20px;
+  border: 1px solid var(--primary);
+  border-radius: 50px;
+  margin: 0 10px 10px 0;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  background: var(--primary);
+  box-shadow: 0 0 15px var(--glow-color);
+}
+@media (max-width: 768px) {
+  .about-section {
+    grid-template-columns: 1fr; 
+    text-align: center;
+  }
+  .about-text h2 {
+    text-align: center; 
+  }
 }
