@@ -152,3 +152,10 @@ footer {
     transform: translateY(0);
   }
 }
+.post-thumbnail {
+  width: 100%;
+  height: 160px;
+  object-fit: cover; /* This prevents the image from stretching */
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
