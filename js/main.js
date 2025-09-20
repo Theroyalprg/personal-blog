@@ -1,8 +1,6 @@
-// Replace your old loadSinglePost function with this one
 async function loadSinglePost() {
   const res = await fetch("data/posts.json");
   const posts = await res.json();
-
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
   const post = posts[id];
@@ -10,7 +8,6 @@ async function loadSinglePost() {
   const postContainer = document.getElementById("post-content");
 
   if (post && postContainer) {
-    // Dynamically update the page title to the post's title
     document.title = `${post.title} | Prakarsh's Blog`;
 
     postContainer.innerHTML = `
