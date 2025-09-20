@@ -29,9 +29,16 @@ for (let i = 0; i < 25; i++) {
         z: Math.random() * 500 + 100,
         size: Math.random() * 50 + 30,
         speed: Math.random() * 0.5 + 0.2,
-        img
+        img,
+        offsetY: 0
     });
 }
+
+// Track scroll
+let scrollY = 0;
+window.addEventListener('scroll', () => {
+    scrollY = window.scrollY;
+});
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -41,7 +48,7 @@ function draw() {
     particles.forEach(p => {
         const scale = 500 / (p.z);
         const x = p.x * scale + canvas.width / 2 - canvas.width/2 * scale;
-        const y = p.y * scale + canvas.height / 2 - canvas.height/2 * scale;
+        const y = p.y * scale + canvas.height / 2 - canvas.height/2 * scale + scrollY * scale * 0.05; // parallax
         const size = p.size * scale;
 
         ctx.globalAlpha = Math.min(1, 1 - p.z / 600 + 0.2);
