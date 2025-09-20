@@ -1,91 +1,78 @@
-const canvas = document.getElementById('bg-canvas');
-const ctx = canvas.getContext('2d');
+document.addEventListener('DOMContentLoaded', () => {
+  const canvas = document.getElementById('bg-canvas')
+  const ctx = canvas.getContext('2d')
 
-let w = canvas.width = window.innerWidth;
-let h = canvas.height = window.innerHeight;
-let mouseX = 0;
-let mouseY = 0;
+  function resize() {
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
+  }
+  resize()
+  window.addEventListener('resize', resize)
 
-window.addEventListener('resize', () => {
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
-});
+  let mouseX = 0, mouseY = 0
+  window.addEventListener('mousemove', e => {
+    mouseX = e.clientX - window.innerWidth / 2
+    mouseY = e.clientY - window.innerHeight / 2
+  })
 
-window.addEventListener('mousemove', e => {
-    mouseX = e.clientX - w / 2;
-    mouseY = e.clientY - h / 2;
-});
-
-// Load comic images
-const icons = [];
-const iconSources = [
+  const iconSources = [
     'images/marvel1.png',
     'images/marvel2.png',
     'images/spiderman.png',
     'images/ironman.png'
-];
+  ]
+  const icons = iconSources.map(src => { const i = new Image(); i.src = src; return i })
 
-iconSources.forEach(src => {
-    const img = new Image();
-    img.src = src;
-    icons.push(img);
-});
-
-class Particle {
-    constructor() {
-        this.reset();
+  class Particle {
+    constructor(){ this.reset() }
+    reset(){
+      this.x = Math.random()*window.innerWidth - window.innerWidth/2
+      this.y = Math.random()*window.innerHeight - window.innerHeight/2
+      this.z = Math.random()*window.innerWidth + 200
+      this.size = 15+Math.random()*25
+      this.speed = 0.0008+Math.random()*0.0012
+      this.angle = Math.random()*Math.PI*2
+      this.rotationSpeed = (Math.random()-0.5)*0.02
+      this.icon = icons[Math.floor(Math.random()*icons.length)]
     }
-    reset() {
-        this.x = Math.random() * w - w/2;
-        this.y = Math.random() * h - h/2;
-        this.z = Math.random() * w;
-        this.radius = 2 + Math.random() * 3;
-        this.speed = 0.02 + Math.random() * 0.03;
-        this.angle = Math.random() * Math.PI * 2;
-        this.rotationSpeed = (Math.random() - 0.5) * 0.02;
-        this.floatAmplitude = 5 + Math.random() * 10;
-        this.icon = icons[Math.floor(Math.random() * icons.length)];
+    update(delta){
+      this.z -= this.speed*window.innerWidth*delta
+      this.angle += this.rotationSpeed*delta
+      if(this.z<50) this.reset()
     }
-    update() {
-        this.z -= this.speed * w;
-        this.angle += this.rotationSpeed;
-        this.y += Math.sin(this.angle) * 0.5; // floating motion
-        if (this.z < 1) this.reset();
+    draw(){
+      const k = 800/this.z
+      const px = (this.x+mouseX*0.08)*k+window.innerWidth/2
+      const py = (this.y+mouseY*0.08)*k+window.innerHeight/2
+      const size = Math.max(8,this.size*k*0.06)
+
+      ctx.save()
+      ctx.globalAlpha = Math.max(0.2,1-(this.z/(window.innerWidth+400)))
+      if(this.icon.complete && this.icon.naturalWidth){
+        ctx.translate(px,py)
+        ctx.rotate(this.angle)
+        ctx.drawImage(this.icon,-size/2,-size/2,size,size)
+      } else {
+        ctx.beginPath()
+        ctx.fillStyle='rgba(155,93,229,0.7)'
+        ctx.arc(px,py,size/4,0,Math.PI*2)
+        ctx.fill()
+      }
+      ctx.restore()
     }
-    draw() {
-        const k = 500 / this.z;
-        const px = (this.x + mouseX * 0.1) * k + w / 2;
-        const py = (this.y + mouseY * 0.1) * k + h / 2;
+  }
 
-        if (this.icon.complete) {
-            const size = this.radius * k / 5;
-            ctx.save();
-            ctx.translate(px, py);
-            ctx.rotate(this.angle);
-            ctx.drawImage(this.icon, -size / 2, -size / 2, size, size);
-            ctx.restore();
-        } else {
-            ctx.beginPath();
-            ctx.arc(px, py, this.radius * k / 50, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(155,93,229,0.7)';
-            ctx.fill();
-            ctx.closePath();
-        }
-    }
-}
+  const particles=[]
+  for(let i=0;i<40;i++) particles.push(new Particle())
 
-const particles = [];
-for (let i = 0; i < 80; i++) {
-    particles.push(new Particle());
-}
-
-function animate() {
-    ctx.clearRect(0, 0, w, h);
-    particles.forEach(p => {
-        p.update();
-        p.draw();
-    });
-    requestAnimationFrame(animate);
-}
-
-animate();
+  let last=performance.now()
+  function frame(now){
+    const delta=(now-last)/16.67
+    last=now
+    ctx.clearRect(0,0,canvas.width,canvas.height)
+    particles.sort((a,b)=>b.z-a.z)
+    particles.forEach(p=>{p.update(delta);p.draw()})
+    requestAnimationFrame(frame)
+  }
+  requestAnimationFrame(frame)
+})
