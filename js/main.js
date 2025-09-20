@@ -1,3 +1,52 @@
-async function loadPosts(){const res=await fetch("data/posts.json");const posts=await res.json();const container=document.getElementById("posts");if(!container)return;container.innerHTML=posts.map((p,i)=>`<div class="post-card"><h3>${p.title}</h3><p>${p.excerpt}</p><a href="post.html?id=${i}">Read More</a></div>`).join("");}
-async function loadSinglePost(){const res=await fetch("data/posts.json");const posts=await res.json();const id=new URLSearchParams(window.location.search).get("id");const post=posts[id];const container=document.getElementById("post-content");if(post&&container){document.title=`${post.title} | Prakarsh's Blog`;container.innerHTML=`<div class="post-full-view"><img src="${post.thumbnail}" class="post-banner-image"><article class="post-body"><h1>${post.title}</h1><div class="post-meta">By ${post.author} | ${post.date}</div><div class="post-content-full">${post.content}</div></article><a href="index.html" class="back-link">← Back to all posts</a></div>`;}}
-document.addEventListener("DOMContentLoaded",()=>{if(document.getElementById("posts"))loadPosts();if(document.getElementById("post-content"))loadSinglePost();});
+async function loadPosts() {
+  const res = await fetch("data/posts.json");
+  const posts = await res.json();
+
+  const postsContainer = document.getElementById("posts");
+  if (!postsContainer) return;
+
+  postsContainer.innerHTML = posts
+    .map(
+      (post, index) => `
+    <div class="post-card" style="--i:${index}">
+      <h3>${post.title}</h3>
+      <p>${post.excerpt}</p>
+      <a href="post.html?id=${index}">Read More</a>
+    </div>
+  `
+    )
+    .join("");
+}
+
+async function loadSinglePost() {
+  const res = await fetch("data/posts.json");
+  const posts = await res.json();
+
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  const post = posts[id];
+  
+  const postContainer = document.getElementById("post-content");
+  if (!post || !postContainer) return;
+
+  document.title = `${post.title} | Prakarsh's Blog`;
+
+  postContainer.innerHTML = `
+    <div class="post-full-view">
+      <img src="${post.thumbnail}" alt="${post.title}" class="post-banner-image">
+      <article class="post-body">
+        <h1>${post.title}</h1>
+        <div class="post-meta">
+          <span>By ${post.author}</span> | <span>Published on ${post.date}</span>
+        </div>
+        <div class="post-content-full">
+          ${post.content}
+        </div>
+      </article>
+      <a href="index.html" class="back-link">← Back to all posts</a>
+    </div>
+  `;
+}
+
+if (document.getElementById("posts")) loadPosts();
+if (document.getElementById("post-content")) loadSinglePost();
