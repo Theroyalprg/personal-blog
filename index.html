@@ -1,37 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prakarsh's Comics Blog</title>
-<link rel="stylesheet" href="css/style.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prakarsh Blog</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <canvas id="bg-canvas"></canvas>
 
-<canvas id="bg-canvas"></canvas>
+  <header>
+    <div class="container">
+      <div class="logo">Prakarsh Blog</div>
+      <nav>
+        <a href="index.html" class="active">Home</a>
+        <a href="about.html">About</a>
+      </nav>
+    </div>
+  </header>
 
-<header>
-  <div class="container">
-    <h1 class="logo">Prakarsh's Comics</h1>
-    <nav>
-      <a href="index.html" class="active">Home</a>
-      <a href="about.html">About</a>
-    </nav>
-  </div>
-</header>
+  <main>
+    <h2>Latest Posts</h2>
+    <div class="posts-grid">
+      <div class="post-card">
+        <h3>Post One</h3>
+        <p>Exploring ideas that shape the world of AI and philosophy.</p>
+        <a href="post.html">Read More</a>
+      </div>
 
-<main class="container">
-  <h2>Latest Comic Posts</h2>
-  <div class="posts-grid" id="posts"></div>
-</main>
+      <div class="post-card">
+        <h3>Post Two</h3>
+        <p>Entrepreneurship lessons blended with stoic wisdom.</p>
+        <a href="post.html">Read More</a>
+      </div>
 
-<footer>
-  <p>© 2025 Prakarsh’s Comics Blog</p>
-</footer>
+      <div class="post-card">
+        <h3>Post Three</h3>
+        <p>The beauty of coding and creativity intertwined.</p>
+        <a href="post.html">Read More</a>
+      </div>
+    </div>
+  </main>
 
-<script src="js/main.js"></script>
-<script src="js/bg.js"></script>
+  <footer>
+    © 2025 Prakarsh Blog. All rights reserved.
+  </footer>
 
+  <script src="js/bg.js" defer></script>
 </body>
 </html>
