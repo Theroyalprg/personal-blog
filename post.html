@@ -1,31 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blog Post | Prakarsh's Blog</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-</head>
-<body>
-  <header>
-    <div class="container">
-      <h1 class="logo">Prakarsh's Blog</h1>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-      </nav>
-    </div>
-  </header>
+// Replace your old loadSinglePost function with this one
+async function loadSinglePost() {
+  const res = await fetch("data/posts.json");
+  const posts = await res.json();
 
-  <main class="container" id="post-content">
-    <!-- JS will inject post content here -->
-  </main>
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  const post = posts[id];
+  
+  const postContainer = document.getElementById("post-content");
 
-  <footer>
-    <p>© 2025 Prakarsh’s Blog</p>
-  </footer>
+  if (post && postContainer) {
+    // Dynamically update the page title to the post's title
+    document.title = `${post.title} | Prakarsh's Blog`;
 
-  <script src="js/main.js"></script>
-</body>
-</html>
+    postContainer.innerHTML = `
+      <div class="post-full-view">
+        <img src="${post.thumbnail}" alt="${post.title}" class="post-banner-image">
+        <article class="post-body">
+          <h1>${post.title}</h1>
+          <div class="post-meta">
+            <span>By ${post.author}</span> | <span>Published on ${post.date}</span>
+          </div>
+          <div class="post-content-full">
+            ${post.content}
+          </div>
+        </article>
+        <a href="index.html" class="back-link">← Back to all posts</a>
+      </div>
+    `;
+  }
+}
