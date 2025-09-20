@@ -3,41 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prakarsh's Blog</title>
+<title>Prakarsh's Comics Blog</title>
 <link rel="stylesheet" href="css/style.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+
+<canvas id="bg-canvas"></canvas>
+
 <header>
   <div class="container">
-    <h1 class="logo">Prakarsh's Blog</h1>
+    <h1 class="logo">Prakarsh's Comics</h1>
     <nav>
-      <a href="index.html" class="active">Home</a><a href="about.html">About</a>
+      <a href="index.html" class="active">Home</a>
+      <a href="about.html">About</a>
     </nav>
   </div>
 </header>
 
 <main class="container">
-  <h2>Latest Posts</h2>
+  <h2>Latest Comic Posts</h2>
   <div class="posts-grid" id="posts"></div>
 </main>
 
 <footer>
-  <p>© 2025 Prakarsh’s Blog</p>
+  <p>© 2025 Prakarsh’s Comics Blog</p>
 </footer>
 
 <script src="js/main.js"></script>
-<script>
-const cards=document.querySelectorAll('.post-card');
-const observer=new IntersectionObserver(e=>{
-  e.forEach(i=>{
-    if(i.isIntersecting){
-      i.target.classList.add('reveal-card');
-      observer.unobserve(i.target)
-    }
-  })
-},{threshold:.1});
-cards.forEach(c=>observer.observe(c));
-</script>
+<script src="js/bg.js"></script>
+
 </body>
 </html>
