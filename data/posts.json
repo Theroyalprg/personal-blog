@@ -1,14 +1,18 @@
 [
   {
     "title": "Welcome to My Blog",
+    "author": "Prakarsh",
+    "date": "September 20, 2025",
     "thumbnail": "images/welcome-banner.jpg",
     "excerpt": "This is the very first post on my new blog!",
-    "content": "Hello world! 👋 This is my very first blog post. This blog is powered by HTML, CSS, and JavaScript — no WordPress, no heavy CMS, just clean code. Stay tuned for more content!"
+    "content": "<p>Hello! 👋 This is my very first blog post. This blog is powered by HTML, CSS, and JavaScript </p><p>Stay tuned for more content!</p>"
   },
   {
     "title": "Why I Started Blogging",
+    "author": "Prakarsh",
+    "date": "September 15, 2025",
     "thumbnail": "images/blogging-thoughts.jpg",
     "excerpt": "Quick thoughts on why blogging matters in 2025...",
-    "content": "Blogging for me is not just writing — it’s about sharing ideas, documenting my learning journey, and connecting with like-minded people. A blog is like your personal brand on the internet. Everyone should have one 🚀."
+    "content": "<p>Blogging for me is not just writing, it’s about sharing ideas, documenting my learning journey, and connecting with like-minded people.</p><p>A blog is like your personal brand on the internet. Everyone should have one 🚀.</p>"
   }
 ]
